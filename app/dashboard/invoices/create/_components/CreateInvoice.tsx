@@ -23,7 +23,14 @@ import { parseWithZod } from '@conform-to/zod'
 import { CalendarIcon } from 'lucide-react'
 import React, { useActionState, useState } from 'react'
 
-export default function CreateInvoice() {
+interface iAppProps {
+  firstName: string;
+  lastName: string;
+  address: string;
+  email: string;
+}
+
+export default function CreateInvoice({ address, email, firstName, lastName}: iAppProps) {
   const [lastResult, action] = useActionState(createInvoice, undefined);
   const [form, fields] = useForm({
     lastResult,
@@ -124,14 +131,14 @@ export default function CreateInvoice() {
                   name={fields.fromName.name}
                   key={fields.fromName.key}
                   placeholder="Your Name"
-                //   defaultValue={firstName + " " + lastName}
+                  defaultValue={firstName + " " + lastName}
                 />
                 <p className="text-red-500 text-sm">{fields.fromName.errors}</p>
                 <Input
                   placeholder="Your Email"
                   name={fields.fromEmail.name}
                   key={fields.fromEmail.key}
-                //   defaultValue={email}
+                  defaultValue={email}
                 />
                 <p className="text-red-500 text-sm">
                   {fields.fromEmail.errors}
@@ -140,7 +147,7 @@ export default function CreateInvoice() {
                   placeholder="Your Address"
                   name={fields.fromAddress.name}
                   key={fields.fromAddress.key}
-                //   defaultValue={address}
+                  defaultValue={address}
                 />
                 <p className="text-red-500 text-sm">
                   {fields.fromAddress.errors}
@@ -312,7 +319,7 @@ export default function CreateInvoice() {
             <Textarea
               name={fields.note.name}
               key={fields.note.key}
-            //   defaultValue={fields.note.initialValue}
+              defaultValue={fields.note.initialValue}
               placeholder="Add your Note/s right here..."
             />
             <p className="text-red-500 text-sm">{fields.note.errors}</p>
