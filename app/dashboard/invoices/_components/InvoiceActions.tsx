@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,7 +17,24 @@ import {
 import Link from "next/link";
 import { toast } from "sonner";
 
-export default function InvoiceActions() {
+
+export default function InvoiceActions({id }: {id: string}) {
+  const handleSendReminder = () => {
+    toast.promise(
+      fetch(`/api/email/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }),
+      {
+        loading: "Sending reminder email...",
+        success: "Reminder email sent successfully",
+        error: "Failed to send reminder email",
+      }
+    );
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,16 +44,16 @@ export default function InvoiceActions() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`#`}>
+          <Link href={`/dashboard/invoices/${id}`}>
             <Pencil className="size-4 mr-2" /> Edit Invoice
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={`#`} target="_blank">
+          <Link href={`/api/invoice/${id}`} target="_blank">
             <DownloadCloudIcon className="size-4 mr-2" /> Download Invoice
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem >
+        <DropdownMenuItem onClick={handleSendReminder} >
           <Mail className="size-4 mr-2" /> Reminder Email
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
