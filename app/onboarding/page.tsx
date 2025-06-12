@@ -15,7 +15,7 @@ import { onboardUser } from '@/lib/actions/onboard'
 import { useForm } from "@conform-to/react"
 import { onboardingSchema } from '@/lib/zod-schema'
 
-export default function page() {
+export default function OnboardingPage() {
     const [lastResult, action] = useActionState(onboardUser, undefined) 
     const [form, fields] = useForm({
         lastResult,
