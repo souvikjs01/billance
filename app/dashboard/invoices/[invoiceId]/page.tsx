@@ -17,12 +17,12 @@ async function getData(invoiceId: string, userId: string) {
 
   return data;
 }
+type Params = Promise<{ invoiceId: string }>;
 
-export default async function page({ params }: {params: { invoiceId: string}}) {
+export default async function page({ params }: {params: Params}) {
   const {invoiceId} = await params;
   const session = await requireUser()
   const data = await getData(invoiceId, session.user?.id as string)
-  //   console.log(data);
   
   return (
     <EditInvoice 
