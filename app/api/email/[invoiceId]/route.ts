@@ -7,6 +7,7 @@ export async function POST(req: NextRequest, context: { params: { invoiceId: str
   try {
     const session = await requireUser();
 
+    // @ts-ignore
     const { invoiceId } = context.params
 
     const invoiceData = await prisma.invoice.findUnique({
