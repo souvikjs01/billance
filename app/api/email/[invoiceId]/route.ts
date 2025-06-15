@@ -3,11 +3,11 @@ import { emailClient } from "@/app/utils/mailtrap";
 import { requireUser } from "@/lib/hook";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, { params }: { params: { invoiceId: string } }) {
+export async function POST(req: NextRequest, context: { params: { invoiceId: string } }) {
   try {
     const session = await requireUser();
 
-    const { invoiceId } = params;
+    const { invoiceId } = context.params
 
     const invoiceData = await prisma.invoice.findUnique({
       where: {
