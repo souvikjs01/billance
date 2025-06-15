@@ -23,7 +23,9 @@ async function Authorize(invoiceId: string, userId: string) {
   }
 }
 
-export default async function page({params}: {params: {invoiceId: string}}) {
+type Params = Promise<{ invoiceId: string }>;
+
+export default async function page({params}: {params: Params}) {
   const session = await requireUser();
   const { invoiceId } = await params;
   await Authorize(invoiceId, session.user?.id as string);
