@@ -1,13 +1,13 @@
 import { prisma } from "@/lib/prisma";
 import { emailClient } from "@/app/utils/mailtrap";
 import { requireUser } from "@/lib/hook";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request, { params }: { params: {invoiceId: string}}) {
+export async function POST(req: NextRequest, { params }: { params: { invoiceId: string } }) {
   try {
     const session = await requireUser();
 
-    const { invoiceId } = await params;
+    const { invoiceId } = params;
 
     const invoiceData = await prisma.invoice.findUnique({
       where: {
