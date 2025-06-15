@@ -25,7 +25,7 @@ async function Authorize(invoiceId: string, userId: string) {
 
 export default async function page({params}: {params: {invoiceId: string}}) {
   const session = await requireUser();
-  const { invoiceId } = await params;
+  const invoiceId = params.invoiceId;
   await Authorize(invoiceId, session.user?.id as string);
   return (
     <div className="flex flex-1 justify-center items-center">
